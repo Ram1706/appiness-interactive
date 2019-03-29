@@ -1,6 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import TableDetails from "./TableDetails";
+import {
+  Paper,
+  Table,
+  TableHead,
+  TableCell,
+  TableRow,
+  TableBody
+} from "@material-ui/core";
 
 class Dashboard extends React.PureComponent {
   tabRow() {
@@ -12,19 +20,21 @@ class Dashboard extends React.PureComponent {
   render() {
     return (
       <div className="container">
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <td>ID</td>
-              <td>Name</td>
-              <td>Age</td>
-              <td>Gender</td>
-              <td>Email</td>
-              <td>phoneNo</td>
-            </tr>
-          </thead>
-          <tbody>{this.tabRow()}</tbody>
-        </table>
+        <Paper>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Id</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Age</TableCell>
+                <TableCell>Gender</TableCell>
+                <TableCell>Email</TableCell>
+                <TableCell>PhoneNo</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>{this.tabRow()}</TableBody>
+          </Table>
+        </Paper>
       </div>
     );
   }

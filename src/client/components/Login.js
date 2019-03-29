@@ -1,7 +1,7 @@
 import React from "react";
 import ACTIONS from "../../modules/action";
 import { connect } from "react-redux";
-import Dashboard from './Dashboard';
+import Dashboard from "./Dashboard";
 
 import {
   Dialog,
@@ -9,7 +9,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Button
+  Button,
+  Grid
 } from "@material-ui/core";
 
 class Login extends React.PureComponent {
@@ -20,14 +21,14 @@ class Login extends React.PureComponent {
       pwd: "",
       errormsg: "",
       open: false,
-      loginsuccess:false
+      loginsuccess: false
     };
     this.clearDetails = this.clearDetails.bind(this);
     this.showErrorModal = this.showErrorModal.bind(this);
     this.handleClickOpen = this.handleClickOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
-    this.displayLoginDetails=this.displayLoginDetails.bind(this);
-    this.displayDashboard=this.displayDashboard.bind(this);
+    this.displayLoginDetails = this.displayLoginDetails.bind(this);
+    this.displayDashboard = this.displayDashboard.bind(this);
   }
 
   handleChange = e => {
@@ -37,7 +38,6 @@ class Login extends React.PureComponent {
   };
 
   clearDetails() {
-    console.log("clearDetails");
     this.setState({
       name: "",
       pwd: "",
@@ -57,42 +57,41 @@ class Login extends React.PureComponent {
   onSubmit = e => {
     e.preventDefault();
     this.setState({
-        errormsg: "",
-        loginsuccess:false
-      });
+      errormsg: "",
+      loginsuccess: false
+    });
     const formDetails = {
       name: this.state.name,
-      pwd: this.state.pwd,
+      pwd: this.state.pwd
     };
-    var errormsg="";
-    if ((formDetails.name === "" || formDetails.name.length <= 0) &&
-      (formDetails.pwd === "" || formDetails.name.pwd <= 0)) {
-        errormsg="Enter User name and password";
+    var errormsg = "";
+    if (
+      (formDetails.name === "" || formDetails.name.length <= 0) &&
+      (formDetails.pwd === "" || formDetails.name.pwd <= 0)
+    ) {
+      errormsg = "Enter User name and password";
     } else if (formDetails.name === "" || formDetails.name.length <= 0) {
-        errormsg= "Enter User name ";
+      errormsg = "Enter User name ";
     } else if (formDetails.pwd === "" || formDetails.name.pwd <= 0) {
-        errormsg= "Enter Password ";
+      errormsg = "Enter Password ";
     } else {
-        errormsg="";
+      errormsg = "";
     }
 
-    if(errormsg!=="")
-    {
+    if (errormsg !== "") {
       this.setState({
-            open: true,
-          errormsg:errormsg 
-          });
-    }else{
-       this.props.createItem(formDetails);
-       this.setState({
-            loginsuccess: true
-          });
+        open: true,
+        errormsg: errormsg
+      });
+    } else {
+      this.props.createItem(formDetails);
+      this.setState({
+        loginsuccess: true
+      });
     }
-    console.log("errormsg" + this.state.errormsg);
   };
 
   showErrorModal() {
-    console.log("showErrorModal");
     return (
       <Dialog
         open={this.state.open}
@@ -117,57 +116,50 @@ class Login extends React.PureComponent {
     );
   }
 
-
-    displayLoginDetails()
-    {
-      return (
-      <div style={{marginTop: 50}}>
-            <form>
+  displayLoginDetails() {
+    return (
+      <div style={{ marginTop: 50 }}>
+        <Grid>
+          <form>
             <div className="form-group">
-              <label>
-                User Name:
-                </label>
-                <input
-                  name="name"
-                  value={this.state.name}
-                  onChange={e => this.handleChange(e)}
-                />
-             
-              </div>
-              <div className="form-group">
-              <label>
-                Password:
-                </label>
-                <input
-                  name="pwd"
-                  value={this.state.pwd}
-                  onChange={e => this.handleChange(e)}
-                />
-              
-              </div>
-              <button  className="btn btn-primary" onClick={e => this.onSubmit(e)}>Login</button>
-            </form>
-            { this.state.open && this.showErrorModal()}
-      </div> );
-    }
+              <label>User Name:</label>
+              <input
+                name="name"
+                value={this.state.name}
+                onChange={e => this.handleChange(e)}
+              />
+            </div>
+            <div className="form-group">
+              <label>Password:</label>
+              <input
+                name="pwd"
+                value={this.state.pwd}
+                onChange={e => this.handleChange(e)}
+              />
+            </div>
+            <button className="btn btn-primary" onClick={e => this.onSubmit(e)}>
+              Login
+            </button>
+          </form>
+          {this.state.open && this.showErrorModal()}
+        </Grid>
+      </div>
+    );
+  }
 
-    displayDashboard()
-    {
-       return (<Dashboard/>);
-    }
+  displayDashboard() {
+    return <Dashboard />;
+  }
 
   render() {
     return (
       <div>
-       { !this.state.loginsuccess && this.displayLoginDetails()}
-        { this.state.loginsuccess && this.displayDashboard()}
-       </div>
+        {!this.state.loginsuccess && this.displayLoginDetails()}
+        {this.state.loginsuccess && this.displayDashboard()}
+      </div>
     );
   }
 }
-
-
-
 
 const mapStateToProps = state => {
   return {
@@ -185,4 +177,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Login);
-

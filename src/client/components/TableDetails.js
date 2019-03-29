@@ -1,28 +1,22 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import { TableCell, TableRow } from "@material-ui/core";
 
 class TableDetails extends Component {
   render() {
     return (
-        <tr>
-          <td>
-            {this.props.user.id}
-          </td>
-          <td>
-            {this.props.user.name}
-          </td>
-          <td>
-            {this.props.user.age}
-          </td>
-          <td>
-            {this.props.user.gender}
-          </td>
-          <td>
-            {this.props.user.email}
-          </td>
-          <td>
-            {this.props.user.phoneNo}
-          </td>
-        </tr>
+      <TableRow>
+        <TableCell>{this.props.user.id}</TableCell>
+
+        <TableCell>{this.props.user.name}</TableCell>
+
+        <TableCell>{this.props.user.age}</TableCell>
+
+        <TableCell>{this.props.user.gender}</TableCell>
+
+        <TableCell>{this.props.user.email}</TableCell>
+
+        <TableCell>{this.props.user.phoneNo}</TableCell>
+      </TableRow>
     );
   }
 }
