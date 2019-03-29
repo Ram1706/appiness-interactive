@@ -5,8 +5,6 @@ import UserDetails from "../components/UserDetails";
 import Login from "../components/Login";
 
 class Create extends React.PureComponent {
-
-  
   componentDidMount() {
     this.props.createItemForUsers(UserDetails);
   }
